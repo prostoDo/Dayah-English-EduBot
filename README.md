@@ -1,55 +1,104 @@
-<<<<<<< HEAD
-# Dayah-English-EduBot
-=======
-# Diancho Subscription Bot
+# Dayah English EduBot
 
-Telegram bot on grammY + TypeScript. It checks whether a user is subscribed to required channels and sends a Google/Yandex Disk link only after all subscriptions are confirmed.
+Telegram-бот на TypeScript и grammY, который проверяет подписку пользователя на обязательные каналы и после успешной проверки выдает ссылку на материалы.
 
-## Setup
+## Возможности
 
-1. Install dependencies:
+- Проверка подписки на все добавленные Telegram-каналы.
+- Вывод списка каналов с кликабельными названиями.
+- Выдача ссылки на Google Drive или Яндекс Диск.
+- Админ-панель внутри Telegram.
+- Добавление и удаление каналов.
+- Изменение ссылки на материалы.
+- Добавление необязательного PNG/JPG-изображения к приветствию.
+- Хранение настроек в SQLite.
+
+## Установка
+
+Установите зависимости:
 
 ```bash
 npm install
 ```
 
-2. Copy environment file:
+Создайте `.env` на основе примера:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Fill `.env`:
+Заполните переменные:
 
-- `BOT_TOKEN` - token from BotFather.
-- `ADMIN_IDS` - comma-separated Telegram user IDs that can open `/admin`.
-- `DATABASE_PATH` - SQLite database path.
-
-4. Run in development:
-
-```bash
-npm run dev
+```env
+BOT_TOKEN=токен_от_BotFather
+ADMIN_IDS=123456789,987654321
+DATABASE_PATH=data/bot.sqlite
 ```
 
-5. Build and run production:
+- `BOT_TOKEN` — токен Telegram-бота.
+- `ADMIN_IDS` — Telegram ID администраторов через запятую.
+- `DATABASE_PATH` — путь к SQLite-базе. Переменную можно не указывать, по умолчанию используется `data/bot.sqlite`.
+
+## Запуск
+
+Разработка с автоматическим перезапуском:
+
+```bash
+npm run watch
+```
+
+Сборка и обычный запуск:
 
 ```bash
 npm run build
 npm start
 ```
 
-## Important Telegram Requirement
+## Команды
 
-The bot must be added to every required channel so it can call `getChatMember`. Channel management in `/admin` expects public `https://t.me/channel_username` links.
+### Пользователь
 
-## Admin Flow
+- `/start` — показывает приветствие, список каналов и кнопку проверки подписки.
+- `Я подписался(-ась)` — проверяет подписки и выдает ссылку на материалы.
 
-Open `/admin` from an admin account.
+### Администратор
 
-To add a channel, send two lines when prompted:
+- `/admin` — открывает админ-панель.
+- `/welcome_image` — предлагает загрузить или заменить изображение приветствия.
+- `/remove_welcome_image` — удаляет изображение приветствия.
+
+В админ-панели можно:
+
+- добавить канал;
+- удалить канал;
+- посмотреть список каналов;
+- изменить или посмотреть ссылку на материалы;
+- добавить, заменить или удалить изображение приветствия.
+
+Для добавления канала отправьте название и публичную ссылку двумя строками:
 
 ```text
-Channel title
+Название канала
 https://t.me/channel_username
 ```
->>>>>>> 6955f84 (First_version_bot_commit)
+
+## Требования Telegram
+
+Бот должен быть добавлен администратором во все обязательные каналы. Иначе Telegram может вернуть ошибку `member list is inaccessible`, и проверить подписку пользователя будет невозможно.
+
+Через админ-панель поддерживаются публичные ссылки вида:
+
+```text
+https://t.me/channel_username
+```
+
+## Структура данных
+
+SQLite-база создается автоматически. В ней хранятся:
+
+- обязательные каналы;
+- ссылка на материалы;
+- Telegram `file_id` изображения приветствия;
+- сведения об успешно проверенных пользователях.
+
+Файлы `.env`, `data/`, `node_modules/` и `dist/` исключены из Git.
