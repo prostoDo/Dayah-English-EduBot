@@ -1,0 +1,6 @@
+{
+  "watch": ["src", ".env"],
+  "ext": "ts,json,env",
+  "ignore": ["dist", "node_modules", "data"],
+  "exec": "npm run build && node dist/index.js"
+}

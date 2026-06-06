@@ -1,0 +1,25 @@
+{
+  "name": "diancho-subscription-bot",
+  "version": "1.0.0",
+  "description": "Telegram subscription gate bot built with grammY and TypeScript.",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "watch": "nodemon"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "dotenv": "^16.5.0",
+    "grammy": "^1.36.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.15.29",
+    "nodemon": "^3.1.14",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
